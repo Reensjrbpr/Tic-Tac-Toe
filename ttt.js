@@ -23,6 +23,9 @@ const gameBoard = (() => {
 //Create controller module
 const controller = (() => {
 
+    let type = '';
+
+    
 
 })();
 
