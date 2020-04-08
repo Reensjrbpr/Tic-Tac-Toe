@@ -1,6 +1,6 @@
 //Create gameboard module
 const gameBoard = (() => {
-    let gboard = ['','','','','','','','',''];
+    let gboard = ['X','X','X','X','X','X','X','X','X'];
 
     //Generate gameboard
     function render(){
@@ -9,25 +9,31 @@ const gameBoard = (() => {
         for(let i = 0; i < gboard.length; i++){
             
             const square = document.createElement('div');
-
-            square.textContent = gboard[i];
+            const squareText = document.createElement('div');
+        
             square.classList.add('squares');
+            squareText.setAttribute('id', `box${i}`);
+            squareText.textContent = gboard[i];
+            squareText.style.cssText = 'visibility: hidden;';
 
             grid.appendChild(square);
+            square.appendChild(squareText);
         }
     }
 
     //Create function for player to choose which square to play on
     function gameplay(){
         const squares = document.querySelectorAll('.squares');
-
+        
         squares.forEach((squares, index) => squares.addEventListener('mouseenter', () => {
-            squares.textContent = 'X';
+            const showText = document.querySelector(`#box${index}`);
+            showText.style.cssText = 'visibility: visible;';
         }));
 
         squares.forEach((squares, index) => squares.addEventListener('mouseleave', () => {
-            squares.textContent = '';
-        }));
+            const hideText = document.querySelector(`#box${index}`);
+            hideText.style.cssText = 'visibility: hidden;';
+        })); 
     }
     return {render, gameplay};
 })();
