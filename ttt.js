@@ -1,14 +1,14 @@
 //Create gameboard module
 const gameBoard = (() => {
-    let gboard = ['X', 'O', 'X', 'O', 'X', 'O', 'X', 'O', 'X'];
+    let gboard = ['','','','','','','','',''];
 
     //Generate gameboard
     function render(){
-        let grid = document.querySelector('#grid');
+        const grid = document.querySelector('#grid');
 
         for(let i = 0; i < gboard.length; i++){
             
-            let square = document.createElement('div');
+            const square = document.createElement('div');
 
             square.textContent = gboard[i];
             square.classList.add('squares');
@@ -17,7 +17,19 @@ const gameBoard = (() => {
         }
     }
 
-    return {render};
+    //Create function for player to choose which square to play on
+    function gameplay(){
+        const squares = document.querySelectorAll('.squares');
+
+        squares.forEach((squares, index) => squares.addEventListener('mouseenter', () => {
+            squares.textContent = 'X';
+        }));
+
+        squares.forEach((squares, index) => squares.addEventListener('mouseleave', () => {
+            squares.textContent = '';
+        }));
+    }
+    return {render, gameplay};
 })();
 
 //Create controller module
@@ -25,13 +37,23 @@ const controller = (() => {
 
     let type = '';
 
-    
+    //Create function for player to choose gamemode (Single or Multi)
+    const gamemode = document.querySelectorAll('.gamemode');
 
+    gamemode.forEach(gamemode => gamemode.addEventListener('click', (gamemode) => {
+        let clearMenu = document.querySelector('#menu');
+        clearMenu.style.cssText = 'display: none;';
+
+        //if(gamemode.id === 'single') const single = Player();
+        //if(gamemode.id === 'multi') const multi = Player();
+    }));
+
+    
 })();
 
 //Create player factory
 const Player = () => {
-    let name;
+    let name = name;
     let score;
     let type;
 
@@ -39,3 +61,5 @@ const Player = () => {
 };
 
 gameBoard.render();
+gameBoard.gameplay();
+

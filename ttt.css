@@ -24,6 +24,14 @@ h1 {
 
 #question {
     display: block;
+    font-size: 2em;
+}
+
+.gamemode {
+    display: inline-block;
+    padding: 10px;
+    border: 1px solid white;
+    border-radius: 5px;
 }
 
 main {
@@ -57,4 +65,8 @@ main {
     font-size: 10em;
     text-align: center;
     width: 100%;
+}
+
+.squares:hover {
+   /* background-color: lightgray;*/
 }
