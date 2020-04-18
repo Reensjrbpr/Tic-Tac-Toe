@@ -1,6 +1,14 @@
 //Create gameboard module
 const gameBoard = (() => {
-    let gboard = ['X','X','X','X','X','X','X','X','X'];
+    let gboard = [{text: 'X', clicked: 'no'},
+    {text: 'X', clicked: 'no'},
+    {text: 'X', clicked: 'no'},
+    {text: 'X', clicked: 'no'},
+    {text: 'X', clicked: 'no'},
+    {text: 'X', clicked: 'no'},
+    {text: 'X', clicked: 'no'},
+    {text: 'X', clicked: 'no'},
+    {text: 'X', clicked: 'no'}];
 
     //Generate gameboard
     function render(){
@@ -13,7 +21,7 @@ const gameBoard = (() => {
         
             square.classList.add('squares');
             squareText.setAttribute('id', `box${i}`);
-            squareText.textContent = gboard[i];
+            squareText.textContent = gboard[i].text;
             squareText.style.cssText = 'visibility: hidden;';
 
             grid.appendChild(square);
@@ -24,15 +32,21 @@ const gameBoard = (() => {
     //Create function for player to choose which square to play on
     function gameplay(){
         const squares = document.querySelectorAll('.squares');
-        
+
         squares.forEach((squares, index) => squares.addEventListener('mouseenter', () => {
             const showText = document.querySelector(`#box${index}`);
             showText.style.cssText = 'visibility: visible;';
+
+            //Mark box as "clicked"
+            showText.addEventListener('click', () => {
+                gboard[index].clicked = 'yes';
+            });
         }));
 
         squares.forEach((squares, index) => squares.addEventListener('mouseleave', () => {
             const hideText = document.querySelector(`#box${index}`);
-            hideText.style.cssText = 'visibility: hidden;';
+
+            if(gboard[index].clicked !== 'yes') hideText.style.cssText = 'visibility: hidden;';
         })); 
     }
     return {render, gameplay};
