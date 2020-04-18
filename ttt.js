@@ -60,12 +60,28 @@ const controller = (() => {
     //Create function for player to choose gamemode (Single or Multi)
     const gamemode = document.querySelectorAll('.gamemode');
 
-    gamemode.forEach(gamemode => gamemode.addEventListener('click', (gamemode) => {
-        let clearMenu = document.querySelector('#menu');
-        clearMenu.style.cssText = 'display: none;';
+    gamemode.forEach(gamemode => gamemode.addEventListener('click', () => {
 
-        //if(gamemode.id === 'single') const single = Player();
-        //if(gamemode.id === 'multi') const multi = Player();
+       // gameBoard.gameplay();
+
+        let clearMenu = document.querySelector('#menu');
+        let showGame = document.querySelector('main');
+        let clearOpt1 = document.querySelector('#single');
+        let clearOpt2 = document.querySelector('#multi');
+        let showStart = document.querySelector('#start');
+
+        clearOpt1.style.cssText = 'display: none;';
+        clearOpt2.style.cssText = 'display: none;';
+        
+        showStart.style.cssText = 'display: inline-block;';
+      //  clearMenu.style.cssText = 'display: none;';
+        //showGame.style.cssText = 'display: block;';
+
+        if(gamemode.id === 'single') {const single = Player()};
+        if(gamemode.id === 'multi') {
+            const player1 = Player();
+            const player2 = Player();
+        }
     }));
 
     
@@ -73,7 +89,7 @@ const controller = (() => {
 
 //Create player factory
 const Player = () => {
-    let name = name;
+    let name;
     let score;
     let type;
 
@@ -81,5 +97,5 @@ const Player = () => {
 };
 
 gameBoard.render();
-gameBoard.gameplay();
+
 
