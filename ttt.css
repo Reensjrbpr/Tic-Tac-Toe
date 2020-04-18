@@ -32,6 +32,7 @@ h1 {
     padding: 10px;
     border: 1px solid white;
     border-radius: 5px;
+    user-select: none;
 }
 
 main {
@@ -67,6 +68,7 @@ main {
     width: 100%;
 }
 
-.squares:hover {
+.gamemode:hover {
+    color: #3D3D3D;
     background-color: lightgray;
 }
