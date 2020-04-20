@@ -32,14 +32,23 @@ const gameBoard = (() => {
     //Create function for player to choose which square to play on
     function gameplay(){
         const squares = document.querySelectorAll('.squares');
+        let count = 0;
 
         squares.forEach((squares, index) => squares.addEventListener('mouseenter', () => {
             const showText = document.querySelector(`#box${index}`);
+        
+            if((count % 2) !== 0){
+                showText.textContent = 'O';
+            }
+            
             showText.style.cssText = 'visibility: visible;';
 
             //Mark box as "clicked"
             showText.addEventListener('click', () => {
+                count++;
+                
                 gboard[index].clicked = 'yes';
+                gboard[index].text = showText.textContent;
             });
         }));
 
@@ -55,47 +64,74 @@ const gameBoard = (() => {
 //Create controller module
 const controller = (() => {
 
-    let type = '';
-
     //Create function for player to choose gamemode (Single or Multi)
     const gamemode = document.querySelectorAll('.gamemode');
 
     gamemode.forEach(gamemode => gamemode.addEventListener('click', () => {
 
-       // gameBoard.gameplay();
-
-        let clearMenu = document.querySelector('#menu');
-        let showGame = document.querySelector('main');
         let clearOpt1 = document.querySelector('#single');
         let clearOpt2 = document.querySelector('#multi');
         let showStart = document.querySelector('#start');
 
         clearOpt1.style.cssText = 'display: none;';
         clearOpt2.style.cssText = 'display: none;';
-        
         showStart.style.cssText = 'display: inline-block;';
-      //  clearMenu.style.cssText = 'display: none;';
-        //showGame.style.cssText = 'display: block;';
 
-        if(gamemode.id === 'single') {const single = Player()};
+
+        const updateTitle = document.querySelector('#question');
+
+        if(gamemode.id === 'single') {
+            updateTitle.textContent = 'Singleplayer';
+            startGame(gamemode.id);
+        }
         if(gamemode.id === 'multi') {
-            const player1 = Player();
-            const player2 = Player();
+            const showInput = document.querySelector('#playerNames');
+
+            updateTitle.textContent = 'Multiplayer';
+            showInput.style.cssText = 'display: block;';
+
+            startGame(gamemode.id);
         }
     }));
 
-    
+    //Show game board to start game
+   function startGame(id){
+       const start = document.querySelector('#start');
+
+       start.addEventListener('click', () => {
+            const hideMenu = document.querySelector('#menu');
+            const showGame = document.querySelector('main');
+
+            hideMenu.style.cssText = 'display: none;';
+            showGame.style.cssText = 'display: block;';
+
+            if(id === 'single'){
+               // const single = Player(name, type);
+            }
+            if(id === 'multi'){
+                const getName1 = document.querySelector('#name1');
+                const getName2 = document.querySelector('#name2');
+
+                const player1 = Player(getName1.value, 'X');
+                const player2 = Player(getName2.value, 'O');
+
+                gameBoard.render();
+                gameBoard.gameplay();
+           }
+       });
+   }
+
 })();
 
 //Create player factory
-const Player = () => {
-    let name;
-    let score;
-    let type;
+const Player = (name, type) => {
+    this.name = name;
+    this.type = type;
+    let score = 0;
 
     return {name, score, type};
 };
 
-gameBoard.render();
+
 
 
