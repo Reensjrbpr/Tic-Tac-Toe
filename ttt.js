@@ -44,12 +44,13 @@ const gameBoard = (() => {
             showText.style.cssText = 'visibility: visible;';
 
             //Mark box as "clicked"
-            showText.addEventListener('click', () => {
+            if(showText.addEventListener('click', () => {
+                    return true;
+            })){
                 count++;
-                
                 gboard[index].clicked = 'yes';
                 gboard[index].text = showText.textContent;
-            });
+            }
         }));
 
         squares.forEach((squares, index) => squares.addEventListener('mouseleave', () => {
