@@ -1,14 +1,14 @@
 //Create gameboard module
 const gameBoard = (() => {
-    let gboard = [{text: 'X', clicked: 'no'},
-    {text: 'X', clicked: 'no'},
-    {text: 'X', clicked: 'no'},
-    {text: 'X', clicked: 'no'},
-    {text: 'X', clicked: 'no'},
-    {text: 'X', clicked: 'no'},
-    {text: 'X', clicked: 'no'},
-    {text: 'X', clicked: 'no'},
-    {text: 'X', clicked: 'no'}];
+    let gboard = [{text: 'X', clicked: false},
+    {text: 'X', clicked: false},
+    {text: 'X', clicked: false},
+    {text: 'X', clicked: false},
+    {text: 'X', clicked: false},
+    {text: 'X', clicked: false},
+    {text: 'X', clicked: false},
+    {text: 'X', clicked: false},
+    {text: 'X', clicked: false}];
 
     //Generate gameboard
     function render(){
@@ -32,33 +32,34 @@ const gameBoard = (() => {
     //Create function for player to choose which square to play on
     function gameplay(){
         const squares = document.querySelectorAll('.squares');
-        let count = 0;
+        let turn = true;
 
         squares.forEach((squares, index) => squares.addEventListener('mouseenter', () => {
             const showText = document.querySelector(`#box${index}`);
-        
-            if((count % 2) !== 0){
-                showText.textContent = 'O';
-            }
             
+            if(turn === false) showText.textContent = 'O';
+            else showText.textContent = 'X';
+
             showText.style.cssText = 'visibility: visible;';
 
             //Mark box as "clicked"
-            if(showText.addEventListener('click', () => {
-                    return true;
-            })){
-                count++;
-                gboard[index].clicked = 'yes';
+            showText.addEventListener('click', () => {
+                turn = !turn;
+
+                gboard[index].clicked = true;
                 gboard[index].text = showText.textContent;
-            }
+
+                console.log(turn);
+            });
         }));
 
         squares.forEach((squares, index) => squares.addEventListener('mouseleave', () => {
             const hideText = document.querySelector(`#box${index}`);
 
-            if(gboard[index].clicked !== 'yes') hideText.style.cssText = 'visibility: hidden;';
+            if(gboard[index].clicked !== true) hideText.style.cssText = 'visibility: hidden;';
         })); 
     }
+
     return {render, gameplay};
 })();
 
