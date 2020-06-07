@@ -34,6 +34,15 @@ const gameBoard = (() => {
         const squares = document.querySelectorAll('.squares');
         let turn = true;
 
+        squares.forEach((squares, index) => squares.addEventListener('click', () => {
+            turn = !turn;
+
+            gboard[index].clicked = true;
+            gboard[index].text = squares.textContent;
+
+           // console.log(turn);
+        }));
+
         squares.forEach((squares, index) => squares.addEventListener('mouseenter', () => {
             const showText = document.querySelector(`#box${index}`);
             
@@ -41,16 +50,6 @@ const gameBoard = (() => {
             else showText.textContent = 'X';
 
             showText.style.cssText = 'visibility: visible;';
-
-            //Mark box as "clicked"
-            showText.addEventListener('click', () => {
-                turn = !turn;
-
-                gboard[index].clicked = true;
-                gboard[index].text = showText.textContent;
-
-                console.log(turn);
-            });
         }));
 
         squares.forEach((squares, index) => squares.addEventListener('mouseleave', () => {
