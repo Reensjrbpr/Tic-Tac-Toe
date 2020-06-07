@@ -35,21 +35,24 @@ const gameBoard = (() => {
         let turn = true;
 
         squares.forEach((squares, index) => squares.addEventListener('click', () => {
-            turn = !turn;
+            if(gboard[index].clicked === false){
+                turn = !turn;
 
-            gboard[index].clicked = true;
-            gboard[index].text = squares.textContent;
-
+                gboard[index].clicked = true;
+                gboard[index].text = squares.textContent;
+            }
            // console.log(turn);
         }));
 
         squares.forEach((squares, index) => squares.addEventListener('mouseenter', () => {
-            const showText = document.querySelector(`#box${index}`);
+            if(gboard[index].clicked === false){
+                const showText = document.querySelector(`#box${index}`);
             
-            if(turn === false) showText.textContent = 'O';
-            else showText.textContent = 'X';
+                if(turn === false) showText.textContent = 'O';
+                else showText.textContent = 'X';
 
-            showText.style.cssText = 'visibility: visible;';
+                showText.style.cssText = 'visibility: visible;';
+            }
         }));
 
         squares.forEach((squares, index) => squares.addEventListener('mouseleave', () => {
@@ -59,6 +62,7 @@ const gameBoard = (() => {
         })); 
     }
 
+    
     return {render, gameplay};
 })();
 
