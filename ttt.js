@@ -41,13 +41,10 @@ const gameBoard = (() => {
                 gboard[index].text = squares.textContent;
                 gboard[index].clicked = true;
                 gboard[index].type = squares.textContent;
-                
-                console.log(index);
 
                 //Check for game win
                 gameWin();
             }
-           // console.log(turn);
         }));
 
         squares.forEach((squares, index) => squares.addEventListener('mouseenter', () => {
@@ -69,15 +66,25 @@ const gameBoard = (() => {
     }
 
     function gameWin(){
-        if(gboard[0].type == gboard[1].type && gboard[0].type == gboard[2].type) alert("You win!");
-        if(gboard[3].type == gboard[4].type && gboard[3].type == gboard[5].type) alert("You win!");
-        if(gboard[6].type == gboard[7].type && gboard[6].type == gboard[8].type) alert("You win!");
-        if(gboard[0].type == gboard[3].type && gboard[0].type == gboard[6].type) alert("You win!");
-        if(gboard[1].type == gboard[4].type && gboard[1].type == gboard[7].type) alert("You win!");
-        if(gboard[2].type == gboard[5].type && gboard[2].type == gboard[8].type) alert("You win!");
-        if(gboard[0].type == gboard[4].type && gboard[0].type == gboard[8].type) alert("You win!");
-        if(gboard[6].type == gboard[4].type && gboard[6].type == gboard[2].type) alert("You win!");            
+        if(gboard[0].type == gboard[1].type && gboard[0].type == gboard[2].type) winMessage(gboard[0].type);
+        if(gboard[3].type == gboard[4].type && gboard[3].type == gboard[5].type) winMessage(gboard[3].type);
+        if(gboard[6].type == gboard[7].type && gboard[6].type == gboard[8].type) winMessage(gboard[6].type);
+        if(gboard[0].type == gboard[3].type && gboard[0].type == gboard[6].type) winMessage(gboard[0].type);
+        if(gboard[1].type == gboard[4].type && gboard[1].type == gboard[7].type) winMessage(gboard[1].type);
+        if(gboard[2].type == gboard[5].type && gboard[2].type == gboard[8].type) winMessage(gboard[2].type);
+        if(gboard[0].type == gboard[4].type && gboard[0].type == gboard[8].type) winMessage(gboard[0].type);
+        if(gboard[6].type == gboard[4].type && gboard[6].type == gboard[2].type) winMessage(gboard[6].type); 
+        
+        function winMessage(type){
+            if(type == 'X'){
+                alert("Congrats Player 1 has won!");
+            }
+            else if(type == 'O'){
+                alert("Congrats Player 2 has won!");
+            }
+        }
     }
+
     return {render, gameplay};
 })();
 
