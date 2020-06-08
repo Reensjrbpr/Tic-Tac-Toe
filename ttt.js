@@ -1,14 +1,14 @@
 //Create gameboard module
 const gameBoard = (() => {
-    let gboard = [{text: 'X', clicked: false},
-    {text: 'X', clicked: false},
-    {text: 'X', clicked: false},
-    {text: 'X', clicked: false},
-    {text: 'X', clicked: false},
-    {text: 'X', clicked: false},
-    {text: 'X', clicked: false},
-    {text: 'X', clicked: false},
-    {text: 'X', clicked: false}];
+    let gboard = [{text: 'X', clicked: false, type: '0'},
+    {text: 'X', clicked: false, type: '1'},
+    {text: 'X', clicked: false, type: '2'},
+    {text: 'X', clicked: false, type: '3'},
+    {text: 'X', clicked: false, type: '4'},
+    {text: 'X', clicked: false, type: '5'},
+    {text: 'X', clicked: false, type: '6'},
+    {text: 'X', clicked: false, type: '7'},
+    {text: 'X', clicked: false, type: '8'}];
 
     //Generate gameboard
     function render(){
@@ -38,8 +38,14 @@ const gameBoard = (() => {
             if(gboard[index].clicked === false){
                 turn = !turn;
 
-                gboard[index].clicked = true;
                 gboard[index].text = squares.textContent;
+                gboard[index].clicked = true;
+                gboard[index].type = squares.textContent;
+                
+                console.log(index);
+
+                //Check for game win
+                gameWin();
             }
            // console.log(turn);
         }));
@@ -62,7 +68,16 @@ const gameBoard = (() => {
         })); 
     }
 
-    
+    function gameWin(){
+        if(gboard[0].type == gboard[1].type && gboard[0].type == gboard[2].type) alert("You win!");
+        if(gboard[3].type == gboard[4].type && gboard[3].type == gboard[5].type) alert("You win!");
+        if(gboard[6].type == gboard[7].type && gboard[6].type == gboard[8].type) alert("You win!");
+        if(gboard[0].type == gboard[3].type && gboard[0].type == gboard[6].type) alert("You win!");
+        if(gboard[1].type == gboard[4].type && gboard[1].type == gboard[7].type) alert("You win!");
+        if(gboard[2].type == gboard[5].type && gboard[2].type == gboard[8].type) alert("You win!");
+        if(gboard[0].type == gboard[4].type && gboard[0].type == gboard[8].type) alert("You win!");
+        if(gboard[6].type == gboard[4].type && gboard[6].type == gboard[2].type) alert("You win!");            
+    }
     return {render, gameplay};
 })();
 
